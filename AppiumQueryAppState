@@ -1,0 +1,16 @@
+try {
+
+ JavascriptExecutor js = (JavascriptExecutor) driver;
+ Map<String, Object> params = new HashMap<>();
+ params.put("bundleId", "com.yourAppBundleId");
+ final Long state = (Long)js.executeScript("mobile: queryAppState", params);
+ System.out.println("Application state code is :"+state);
+ 
+ if (state==1) {
+ extentTest.log(LogStatus.FAIL, "Application is Crashed");
+ driver.close();
+ driver.quit();
+ }
+} catch (Exception e) {
+ System.out.println("Application state error :" +e);
+}
